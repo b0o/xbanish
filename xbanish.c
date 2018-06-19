@@ -121,15 +121,13 @@ main(int argc, char *argv[])
 		int etype = e.type;
 		if (e.type == motion_type)
 			etype = MotionNotify;
-		else if (e.type == key_press_type ||
-		    e.type == key_release_type)
-			etype = KeyRelease;
-		else if (e.type == button_press_type ||
-		    e.type == button_release_type)
-			etype = ButtonRelease;
+		else if (e.type == key_press_type)
+			etype = KeyPress;
+		else if (e.type == button_press_type)
+			etype = ButtonPress;
 
 		switch (etype) {
-		case KeyRelease:
+		case KeyPress:
 			if (ignored && (e.xkey.state & ignored)) {
 				if (debug)
 					printf("ignoring keystroke %d\n",
@@ -140,7 +138,7 @@ main(int argc, char *argv[])
 			hide_cursor();
 			break;
 
-		case ButtonRelease:
+		case ButtonPress:
 		case MotionNotify:
 			show_cursor();
 			break;
